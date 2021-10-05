@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class StringTest {
+class StringTest {
 
     @Test
     @DisplayName("특정 위치의 문자(',')를 기준으로 분리한다.")
@@ -18,8 +18,7 @@ public class StringTest {
         String[] ret = str.split("\\,");
 
         // then
-        assertThat(ret).contains("1").contains("2");
-        assertThat(ret).containsExactly("1", "2");
+        assertThat(ret).contains("1").contains("2").containsExactly("1", "2");
 
         // given
         str = "1";
@@ -28,8 +27,7 @@ public class StringTest {
         ret = str.split("\\,");
 
         // then
-        assertThat(ret).contains("1");
-        assertThat(ret).containsExactly("1");
+        assertThat(ret).contains("1").containsExactly("1");
     }
 
     @Test
@@ -40,10 +38,10 @@ public class StringTest {
         String str = "(1,2)";
 
         // when
-        String ret = str.substring(0, str.length());
+        String ret = str.substring(1, str.length()-1);
 
         // then
-        assertThat(ret).contains("1,2");
+        assertThat(ret).isEqualTo("1,2");
     }
 
     @Test
@@ -57,9 +55,7 @@ public class StringTest {
         assertThat(str.charAt(0)).isEqualTo('a');
         assertThat(str.charAt(1)).isEqualTo('b');
         assertThat(str.charAt(2)).isEqualTo('c');
-        assertThatThrownBy(() -> {
-            str.charAt(3);
-        }).isInstanceOf(StringIndexOutOfBoundsException.class)
+        assertThatThrownBy(() -> str.charAt(3)).isInstanceOf(StringIndexOutOfBoundsException.class)
                 .hasMessageContaining("String index out of range: 3");
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
                 .isThrownBy(() -> {
