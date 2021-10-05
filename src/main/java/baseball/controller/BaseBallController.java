@@ -9,7 +9,7 @@ import baseball.view.BaseBallView;
 import nextstep.utils.Console;
 
 public class BaseBallController {
-    private BaseBallView baseBallView;
+    private final BaseBallView baseBallView;
 
     public BaseBallController(BaseBallView baseBallView) {
         this.baseBallView = baseBallView;
@@ -48,11 +48,8 @@ public class BaseBallController {
     }
 
     public boolean validateNum(int[] inputNum) {
-        boolean result = true;
-        if( !sizeCheckNum(inputNum) || !duplicateNum(inputNum) || !charactersCheckNum(inputNum) ) {
-            result = false;
-        }
-        return result;
+        return !(!sizeCheckNum(inputNum) || !duplicateNum(inputNum)
+                || !charactersCheckNum(inputNum));
     }
 
     public boolean sizeCheckNum(int[] inputNum) {
